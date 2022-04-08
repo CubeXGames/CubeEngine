@@ -11,6 +11,7 @@ public struct MultiFileFile {
     public byte[] bytes;
 }
 
+//Makes a multifile, a collection of files packaged into one that can be read from by CubeEngine.
 public class Program {
 
     public static void Main(string[] args) {
