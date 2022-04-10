@@ -240,7 +240,6 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Renderer.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Statics.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Main.h" />
