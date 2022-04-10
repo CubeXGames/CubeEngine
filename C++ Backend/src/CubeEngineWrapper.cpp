@@ -411,9 +411,10 @@ void UseShader(unsigned int shader) {
 	Statics::currentShader = shader;
 }
 
-const char* ReadFile(char* fileName, unsigned int* outLength) {
+bool ReadFile(char* fileName, unsigned int* outLength, char* outBytes) {
 
-	return MultiFileReader::ReadFile(fileName, outLength);
+	outBytes = MultiFileReader::ReadFile(fileName, outLength);
+	return outBytes != nullptr;
 }
 
 bool Exists(char* fileName) {
