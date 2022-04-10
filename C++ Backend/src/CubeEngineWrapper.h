@@ -60,7 +60,7 @@ extern "C" {
 	EXPORTED void __cdecl SetShaderMat2(char* name, float value[2][2], bool transpose);
 	EXPORTED void __cdecl SetShaderMat3(char* name, float value[3][3], bool transpose);
 	EXPORTED void __cdecl SetShaderMat4(char* name, float value[4][4], bool transpose);
-	EXPORTED const char* __cdecl ReadFile(char* fileName, unsigned int* outLength);
+	EXPORTED bool __cdecl ReadFile(char* fileName, unsigned int* outLength, char* outBytes);
 	EXPORTED bool __cdecl Exists(char* fileName);
 	EXPORTED uint64_t __cdecl GetFrameCount();
 	EXPORTED void __cdecl WriteLine(char* string);
