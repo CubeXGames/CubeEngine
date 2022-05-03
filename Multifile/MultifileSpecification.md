@@ -11,7 +11,7 @@ The .mf file extension is preferred for multifiles and CubeEngine by default mak
 File Layout:
 ----------
 
-The first few bytes of a multifile is the of the header. The first four give the length of the file header. Then, the structure below is repeated for as many files exist in the multifile.
+The first few bytes of a multifile is the of the header. If any of the first four bytes are set, than the file was created on a little endian computer and should be read as such. The next four bytes give the length of the file header. Then, the structure below is repeated for as many files exist in the multifile.
 
 | Offset | Length | Use                                            |
 |--------|--------|------------------------------------------------|
