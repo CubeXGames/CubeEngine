@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
@@ -50,18 +50,22 @@ public class Program {
 
         Console.WriteLine("Constructing multifile.");
 
-        byte zero = 0x0;
-        byte[] dummyFiller = new byte[4] { zero, zero, zero, zero };
+        const byte NULL = 0x0;
+
+        byte[] dummyFiller = new byte[4] { NULL, NULL, NULL, NULL };
+        byte[] endianness = new byte[4] { BitConverter.IsLittleEndian ? (byte)1 : (byte)0, 0, 0, 0 };
 
         List<byte> buffer1 = new();
+        buffer1.InsertRange(0, endianness);
+
         foreach (MultiFileFile file in fileList) {
 
             buffer1.AddRange(file.hash);
             buffer1.AddRange(dummyFiller);
             buffer1.AddRange(BitConverter.GetBytes(file.bytes.Length));
         }
-
-        buffer1.InsertRange(0, BitConverter.GetBytes(buffer1.Count + 4));
+        
+        buffer1.InsertRange(4, BitConverter.GetBytes(buffer1.Count + 4));
 
         for (int i = 0; i < fileList.Count; i++) {
 
@@ -71,10 +75,8 @@ public class Program {
             buffer1[i * 24 + 22] = pointerBytes[2];
             buffer1[i * 24 + 23] = pointerBytes[3];
 
-            const byte NULL = 0;
-
             buffer1.AddRange(fileList[i].bytes);
-            buffer1.Add(NULL);
+            buffer1.Add(NULL); //null terminate the file so it can be read as a C string
         }
 
         File.WriteAllBytes(Path.GetFullPath(args[0]), buffer1.ToArray());
