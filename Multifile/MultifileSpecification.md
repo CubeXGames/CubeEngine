@@ -6,17 +6,17 @@ To make a multifile, call:
 `multifile <output file name> <list of files>`
 
 In the list of files, folders ending in `/*` can be inputted, which puts all the files in that folder (non-recursively) into the multifile.
-The .mf file extension is preferred for multifiles and CubeEngine by default makes a multifile named `assets.mf` that it uses.
+The .mf file extension should be used for multifiles, and for CubeEngine, the assets file should be named exactly `assets.mf`.
 
-File Layout:
+File Layout & Structure:
 ----------
 
-The first few bytes of a multifile is the of the header. If any of the first four bytes are set, than the file was created on a little endian computer and should be read as such. The next four bytes give the length of the file header. Then, the structure below is repeated for as many files exist in the multifile.
+The start of a multifile contains the information for the hash, size, and location of the files inside the multifile. The first four bytes of the multifile is the length of all this data, in little endian format. Then, the structure below is repeated for as many files exist in the multifile.
 
-| Offset | Length | Use                                            |
-|--------|--------|------------------------------------------------|
-| 0      | 16     | The MD5 hash of the file.                      |
-| 16     | 4      | A pointer in the file to the data of the file. |
-| 20     | 4      | The length, in bytes, of the file.             |
+| Offset | Length | Use                                                                     |
+|--------|--------|-------------------------------------------------------------------------|
+| 0      | 16     | The MD5 hash of the file.                                               |
+| 16     | 4      | A pointer in the file to the data of the file, in little endian format. |
+| 20     | 4      | The length, in bytes, of the file, in little endian format.             |
 
-After the header, the data of the files is laid out in sequential order to how they were inserted in the header. The multifile creator null-terminates them, so generally you should be able to use them like any other C string in C/C++.
+After the header, the data of the files is laid out in sequential order to how they were inserted in the header. They should all be null-terminated, to make working with them easier in C/C++.
