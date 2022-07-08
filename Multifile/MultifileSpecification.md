@@ -19,4 +19,4 @@ The first few bytes of a multifile is the of the header. If any of the first fou
 | 16     | 4      | A pointer in the file to the data of the file. |
 | 20     | 4      | The length, in bytes, of the file.             |
 
-After the header, the data of the files is laid out in sequential order to how they were inserted in the header. The multifile creator null-terminates them, so generally you should be able to use them like any other C string in C++.
+After the header, the data of the files is laid out in sequential order to how they were inserted in the header. The multifile creator null-terminates them, so generally you should be able to use them like any other C string in C/C++.
